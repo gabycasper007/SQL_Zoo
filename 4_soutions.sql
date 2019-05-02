@@ -47,3 +47,13 @@ GROUP BY continent
 HAVING max(population) <= 25000000) AS x
 ON y.continent = x.continent
 
+--10. Some countries have populations more than three times that of any of their neighbours (in the same continent). Give the countries and continents.
+SELECT name, continent
+FROM world w1
+WHERE population >= 
+  ALL(
+    SELECT population * 3 FROM world w2
+    WHERE w1.continent = w2.continent
+    AND w1.name <> w2.name
+  )
+                                                                                                                    
